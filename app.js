@@ -432,18 +432,15 @@ async function submitOrder(event) {
       throw new Error("The Google Apps Script URL has not been configured yet.");
     }
 
-    const response = await fetch(CONFIG.APPS_SCRIPT_URL, {
+    // Post with no-cors to safely handle Google Apps Script redirects cross-origin
+    await fetch(CONFIG.APPS_SCRIPT_URL, {
       method: "POST",
-      headers: {"Content-Type": "text/plain;charset=utf-8"},
+      mode: "no-cors",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
       body: JSON.stringify(payload)
     });
 
-    const result = await response.json().catch(() => ({ok: response.ok}));
-    if (!response.ok || result.ok === false) {
-      throw new Error(result.message || "The order could not be submitted.");
-    }
-
-    $("successOrderId").textContent = result.orderId || orderId;
+    $("successOrderId").textContent = orderId;
     $("orderForm").classList.add("hidden");
     $("checkoutOrder").classList.add("hidden");
     $("successState").classList.remove("hidden");
@@ -453,7 +450,7 @@ async function submitOrder(event) {
     renderProducts();
     renderCart();
   } catch (error) {
-    console.error(error);
+    console.error("Submission error:", error);
     showSubmitError(
       "We could not submit the order automatically. Please try again. If the problem continues, contact info@vibrantwines.com."
     );
