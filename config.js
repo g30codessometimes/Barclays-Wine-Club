@@ -13,7 +13,7 @@ const CONFIG = {
 
   // Google Apps Script Web App URL.
   // Example: https://script.google.com/macros/s/XXXXXXXX/exec
-  APPS_SCRIPT_URL: "",
+  APPS_SCRIPT_URL: "https://script.google.com/macros/s/AKfycbx6kJ8FfKqw2BW85DH5ZtYwSDJhkvjR2qMUTyUm5gCx9WYpCERVGa_oiakTxs0Tf_VS/exec",
 
   // Source portfolio. Because this portal lives under the same
   // vibrantwinessg.github.io domain, the browser can load the current
